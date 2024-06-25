@@ -1,0 +1,45 @@
+.checkout-container {
+  padding: 16px 65px;
+}
+
+.checkout-product {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.checkout-product-info {
+  width: 60%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 900px;
+}
+h1 {
+  color: white;
+}
+
+input {
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.checkout-submit {
+  width: 120px;
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.checkout-price {
+  font-weight: bold;
+  margin-top: 10px;
+}
+.error {
+  color: red;
+}

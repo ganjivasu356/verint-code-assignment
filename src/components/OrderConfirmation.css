@@ -1,0 +1,28 @@
+.order-confirmation {
+  padding: 16px 80px;
+}
+
+.order-number {
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.order-number span {
+  font-weight: 400;
+  padding-left: 6px;
+}
+
+.order-title {
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.amount-chared {
+  font-weight: bold;
+  margin-top: 12px;
+}
+
+.order-number span {
+  font-weight: 400;
+  padding-left: 6px;
+}
