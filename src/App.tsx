@@ -10,31 +10,36 @@ import OrderConfirmation from "./components/OrderConfirmation";
 // import OrderConfirmation from "./components/OrderConfirmation";
 
 function App() {
-  const router = createBrowserRouter([
+  const router = createBrowserRouter(
+    [
+      {
+        path: "/",
+        element: (
+          <ProductsProvider>
+            <AppLayout />
+          </ProductsProvider>
+        ),
+        errorElement: <Error />,
+        children: [
+          {
+            path: "/",
+            element: <Products />,
+          },
+          {
+            path: "/checkout/:id",
+            element: <CheckoutForm />,
+          },
+          {
+            path: "/confirmation",
+            element: <OrderConfirmation />,
+          },
+        ],
+      },
+    ],
     {
-      path: "/",
-      element: (
-        <ProductsProvider>
-          <AppLayout />
-        </ProductsProvider>
-      ),
-      errorElement: <Error />,
-      children: [
-        {
-          path: "/",
-          element: <Products />,
-        },
-        {
-          path: "/checkout/:id",
-          element: <CheckoutForm />,
-        },
-        {
-          path: "/confirmation",
-          element: <OrderConfirmation />,
-        },
-      ],
-    },
-  ]);
+      basename: "/verint-code-assignment",
+    }
+  );
 
   return <RouterProvider router={router} />;
 }
