@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/verint-code-assignment/static/css/main.9d3632d9.css",
-    "main.js": "/verint-code-assignment/static/js/main.1e066087.js",
+    "main.js": "/verint-code-assignment/static/js/main.63acd7fc.js",
     "static/js/453.98d1c12c.chunk.js": "/verint-code-assignment/static/js/453.98d1c12c.chunk.js",
     "index.html": "/verint-code-assignment/index.html",
     "main.9d3632d9.css.map": "/verint-code-assignment/static/css/main.9d3632d9.css.map",
-    "main.1e066087.js.map": "/verint-code-assignment/static/js/main.1e066087.js.map",
+    "main.63acd7fc.js.map": "/verint-code-assignment/static/js/main.63acd7fc.js.map",
     "453.98d1c12c.chunk.js.map": "/verint-code-assignment/static/js/453.98d1c12c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9d3632d9.css",
-    "static/js/main.1e066087.js"
+    "static/js/main.63acd7fc.js"
   ]
 }
