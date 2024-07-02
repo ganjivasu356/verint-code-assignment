@@ -1,13 +1,25 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "./CheckoutForm.css";
 import { useProducts } from "../contexts/ProductsContext";
+import { Product } from "../utility/types";
 
 const CheckoutForm: React.FC = () => {
-  const { setOrder, selectedItem } = useProducts();
+  const { setOrder, loading } = useProducts();
+  const [selectedItem, setSelectedItem] = useState({} as Product);
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchProductInfo = async () => {
+      const response = await fetch(`https://dummyjson.com/products/${id}`);
+      const data = await response.json();
+      setSelectedItem(data);
+    };
+    fetchProductInfo();
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -45,21 +57,27 @@ const CheckoutForm: React.FC = () => {
     },
   });
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="checkout-container">
       <h1>Checkout</h1>
-      <div className="checkout-product">
-        <div className="checkout-product-info">
-          <h2>{selectedItem.title}</h2>
-          <div>{selectedItem.description}</div>
-          <div className="checkout-price">Price: ${selectedItem.price}</div>
+      {selectedItem.id && (
+        <div className="checkout-product">
+          <div className="checkout-product-info">
+            <h2>{selectedItem.title}</h2>
+            <div>{selectedItem.description}</div>
+            <div className="checkout-price">Price: ${selectedItem.price}</div>
+          </div>
+          <img
+            src={selectedItem.images[0]}
+            alt={selectedItem.title}
+            className="product-image"
+          />
         </div>
-        <img
-          src={selectedItem.images[0]}
-          alt={selectedItem.title}
-          className="product-image"
-        />
-      </div>
+      )}
       <form onSubmit={formik.handleSubmit}>
         <input
           type="text"

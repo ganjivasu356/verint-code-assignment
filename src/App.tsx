@@ -7,7 +7,6 @@ import Error from "./components/Error";
 import { ProductsProvider } from "./contexts/ProductsContext";
 import CheckoutForm from "./components/CheckoutForm";
 import OrderConfirmation from "./components/OrderConfirmation";
-// import OrderConfirmation from "./components/OrderConfirmation";
 
 function App() {
   const router = createBrowserRouter(

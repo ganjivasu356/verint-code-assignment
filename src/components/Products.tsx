@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Products.css";
 import { Product } from "../utility/types";
@@ -7,43 +7,50 @@ import { useProducts } from "../contexts/ProductsContext";
 const ItemList: React.FC = () => {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc" | "none">("none");
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortedFilteredItems, setSortedFilteredItems] = useState<Product[]>([]);
   const navigate = useNavigate();
 
-  const {
-    products,
-    filteredItems,
-    setFilteredItems,
-    setSelectedItem,
-    loading,
-    error,
-  } = useProducts();
+  const { products, setSelectedItem, loading, error } = useProducts();
+
+  useEffect(() => {
+    handleFilterAndSort(searchTerm, sortOrder);
+  }, [products]);
 
   const handleSort = (criteria: "title" | "price") => {
-    const sortedItems = [...filteredItems].sort((a, b) => {
-      if (sortOrder === "asc") {
-        setSortOrder("desc");
-        return a[criteria as keyof Product] > b[criteria as keyof Product]
-          ? -1
-          : 1;
-      } else {
-        setSortOrder("asc");
-        return a[criteria as keyof Product] < b[criteria as keyof Product]
-          ? -1
-          : 1;
-      }
-    });
-    setFilteredItems(sortedItems);
+    const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
+    setSortOrder(newSortOrder);
+    handleFilterAndSort(searchTerm, newSortOrder, criteria);
   };
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-    const filtered = products.filter((item) =>
-      item.title.toLowerCase().includes(event.target.value.toLowerCase())
-    );
-    setFilteredItems(filtered);
+    const term = event.target.value;
+    setSearchTerm(term);
+    handleFilterAndSort(term, sortOrder);
   };
 
-  const handleBuyClick = (item: any) => {
+  const handleFilterAndSort = (
+    searchTerm: string,
+    sortOrder: "asc" | "desc" | "none",
+    sortCriteria: "title" | "price" = "title"
+  ) => {
+    let filtered = products.filter((item) =>
+      item.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    if (sortOrder !== "none") {
+      filtered = filtered.sort((a, b) => {
+        if (sortOrder === "asc") {
+          return a[sortCriteria] > b[sortCriteria] ? 1 : -1;
+        } else {
+          return a[sortCriteria] < b[sortCriteria] ? 1 : -1;
+        }
+      });
+    }
+
+    setSortedFilteredItems(filtered);
+  };
+
+  const handleBuyClick = (item: Product) => {
     setSelectedItem(item);
     navigate(`/checkout/${item.id}`);
   };
@@ -82,8 +89,8 @@ const ItemList: React.FC = () => {
         </div>
       </div>
       <div className="product-list">
-        {filteredItems.length > 0 &&
-          filteredItems.map((item) => (
+        {sortedFilteredItems.length > 0 &&
+          sortedFilteredItems.map((item) => (
             <div key={item.id} className="product-card">
               <img
                 src={item.images[0]}

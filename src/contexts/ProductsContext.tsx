@@ -12,6 +12,8 @@ interface ProductsContextType {
   products: Product[];
   filteredItems: Product[];
   setFilteredItems: (products: Product[]) => void;
+  sortedFilterItems: Product[];
+  setSortedFilterItems: (products: Product[]) => void;
   selectedItem: Product;
   setSelectedItem: (products: Product) => void;
   order: any;
@@ -27,6 +29,7 @@ const ProductsContext = createContext<ProductsContextType | undefined>(
 const ProductsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredItems, setFilteredItems] = useState<Product[]>([]);
+  const [sortedFilterItems, setSortedFilterItems] = useState<Product[]>([]);
   const [selectedItem, setSelectedItem] = useState<Product>({} as Product);
   const [order, setOrder] = useState<Product>({} as Product);
 
@@ -56,6 +59,8 @@ const ProductsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         products,
         filteredItems,
         setFilteredItems,
+        sortedFilterItems,
+        setSortedFilterItems,
         selectedItem,
         setSelectedItem,
         order,

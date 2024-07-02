@@ -45,10 +45,9 @@
 }
 
 .product-image {
-  width: 200px;
-  height: 200px;
+  max-height: 200px;
+  max-width: 15%;
   border-radius: 10px;
-  width: 15%;
 }
 
 .product-info {
